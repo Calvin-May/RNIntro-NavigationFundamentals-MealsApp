@@ -10,12 +10,13 @@
   },
   "dependencies": {
     "expo": "~52.0.42",
+    "expo-linear-gradient": "~14.0.2",
     "expo-status-bar": "~2.0.1",
     "react": "18.3.1",
     "react-native": "0.76.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.26.10"
   },
   "private": true,
   "packageManager": "pnpm@9.3.0+sha512.ee7b93e0c2bd11409c6424f92b866f31d3ea1bef5fbe47d3c7500cdc3c9668833d2e55681ad66df5b640c61fa9dc25d546efa54d76d7f8bf54b13614ac293631"

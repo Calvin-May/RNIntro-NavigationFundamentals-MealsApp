@@ -8,7 +8,7 @@ export default function CategoriesScreen({ navigation }) {
     function renderCategoryItem(item) {
 
         function categoryTilePressHandler() {
-            navigation.navigate('MealsOverview');
+            navigation.navigate('MealsOverview', item);
         }
 
         return (

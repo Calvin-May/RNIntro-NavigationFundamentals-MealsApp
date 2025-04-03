@@ -28,10 +28,8 @@ export default function MealItem({title, imageUrl, affordability, duration, comp
 const Styles = StyleSheet.create({
     mealItemContainer: {
         marginBottom: 24,
-        
-        borderWidth: 1,
         borderRadius: 10,
-        elevation: 8,
+        elevation: 3,
         shadowColor: '#000000',
         backgroundColor: '#FFFFFF',
         //IOS Shadow
@@ -69,7 +67,7 @@ const Styles = StyleSheet.create({
         flex: 1,
     },
     buttonPressed: {
-        boxShadow: '0px 0px 12px -1px inset',
+        boxShadow: '0px 0px 12px -4px inset',
     },
 });
 

@@ -23,9 +23,30 @@ export default function App() {
       >
         <View style={Styles.container}>
           <NavigationContainer>
-            <Stack.Navigator initialRouteName="MealCategories">
-              <Stack.Screen name="MealCategories" component={CategoriesScreen} />
-              <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
+            <Stack.Navigator 
+              initialRouteName="MealCategories"
+              screenOptions={{ // Set Global Screen Options
+                headerStyle: {backgroundColor: '#ffffff'},
+                headerTintColor: '#000000',
+                //contentStyle: { backgroundColor: '#555123' } // Doesn't Work
+                cardStyle: {backgroundColor: '#555123'}
+              }}
+            >
+              <Stack.Screen name="MealCategories" 
+                component={CategoriesScreen} 
+                options={{
+                  title: 'Meal Categories',
+                  //headerStyle: {backgroundColor: '#ffffff'},
+                  //headerTintColor: '#000000',
+                  //backgroundColor: '#ffffff'
+                }} 
+                />
+              <Stack.Screen name="MealsOverview" 
+                component={MealsOverviewScreen} 
+                options={{
+                  title: 'Meals'
+                }}
+              />
             </Stack.Navigator>
           </NavigationContainer>
         </View>

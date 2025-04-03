@@ -4,7 +4,7 @@ export default function CategoryGridTile({title, color, onPress}) {
     return (
         <View style={[Styles.gridItem, {backgroundColor: color}]}>
             <Pressable 
-                android_ripple={{color: '#00000034'}} 
+                android_ripple={{color: '#00000034', foreground: true}} 
                 //Destructure pressed from style function, used to insert additional style when button is pressed
                 style={({pressed}) => [Styles.button, pressed ? Styles.buttonPressed : null]}
                 onPress={onPress}

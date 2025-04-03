@@ -26,7 +26,7 @@ export default function MealsOverviewScreen({ navigation, route }) {
 
         return (
             <View>
-                <MealItem {...mealItemProps /*Each key/value pair in mealItemProps is passed as an individual prop */}/>
+                <MealItem {...mealItemProps /*Each property in mealItemProps is passed as an individual prop */}/>
             </View>
         );
     }

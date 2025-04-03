@@ -1,17 +1,24 @@
-import { StyleSheet, Pressable, Image, View, Text } from "react-native";
+import { StyleSheet, Pressable, Image, View, Text, Platform } from "react-native";
 
 export default function MealItem({title, imageUrl, affordability, duration, complexity}) {
     return (
     <View style={Styles.mealItemContainer}>
-        <Pressable>
-            <View>
-            <Image style={Styles.imageStyle} source={{uri: imageUrl}} />
-                <Text style={Styles.title}>{title}</Text>
-            </View>
-            <View style={Styles.details}>
-                <Text><Text style={Styles.detailsHighlight}>Cook Time:</Text> {duration}m</Text>
-                <Text><Text style={Styles.detailsHighlight}>Difficulty:</Text> {complexity.toUpperCase()}</Text>
-                <Text><Text style={Styles.detailsHighlight}>Cost:</Text> {affordability.toUpperCase()}</Text>
+        <Pressable
+            onPress={{}}
+            android_ripple={{color: '#00000034', foreground: true}} 
+            //Destructure pressed from style function, used to insert additional style when button is pressed
+            style={({pressed}) => [Styles.button, pressed ? Styles.buttonPressed : null]}
+        >
+            <View style={Styles.innerContainer}> 
+                <View>
+                    <Image style={Styles.imageStyle} source={{uri: imageUrl}} />
+                    <Text style={Styles.title}>{title}</Text>
+                </View>
+                <View style={Styles.details}>
+                    <Text><Text style={Styles.detailsHighlight}>Cook Time:</Text> {duration}m</Text>
+                    <Text><Text style={Styles.detailsHighlight}>Difficulty:</Text> {complexity.toUpperCase()}</Text>
+                    <Text><Text style={Styles.detailsHighlight}>Cost:</Text> {affordability.toUpperCase()}</Text>
+                </View>
             </View>
         </Pressable>
     </View>
@@ -20,11 +27,24 @@ export default function MealItem({title, imageUrl, affordability, duration, comp
 
 const Styles = StyleSheet.create({
     mealItemContainer: {
-        marginBottom: 20,
-        paddingBottom: 12,
+        marginBottom: 24,
+        
         borderWidth: 1,
+        borderRadius: 10,
+        elevation: 8,
+        shadowColor: '#000000',
+        backgroundColor: '#FFFFFF',
+        //IOS Shadow
+        shadowOpacity: 0.25,
+        shadowOffset: {width: 0, height: 2},
+        shadowRadius: 8,
+        // Prevent android_ripple for going over corners of button container
+        overflow: Platform.OS === 'ios' ? "visible" : 'hidden'  
+    },
+    innerContainer: {
         borderRadius: 8,
         overflow: 'hidden',
+        paddingBottom: 12
     },
     imageStyle: {
         width: '100%',
@@ -33,7 +53,8 @@ const Styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',
         textAlign: 'center',
-        fontSize: 18
+        fontSize: 18,
+        margin: 8
     },
     details: {
         flexDirection: 'row',
@@ -43,6 +64,12 @@ const Styles = StyleSheet.create({
     detailsHighlight: {
         fontWeight: 'bold',
         
-    }
+    },
+    button: {
+        flex: 1,
+    },
+    buttonPressed: {
+        boxShadow: '0px 0px 12px -1px inset',
+    },
 });
 

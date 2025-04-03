@@ -1,17 +1,17 @@
 import { StyleSheet, Pressable, Image, View, Text } from "react-native";
 
-export default function MealItem({mealData}) {
+export default function MealItem({title, imageUrl, affordability, duration, complexity}) {
     return (
     <View style={Styles.mealItemContainer}>
         <Pressable>
             <View>
-            <Image style={Styles.imageStyle} source={{uri: mealData.imageUrl}} />
-                <Text style={Styles.title}>{mealData.title}</Text>
+            <Image style={Styles.imageStyle} source={{uri: imageUrl}} />
+                <Text style={Styles.title}>{title}</Text>
             </View>
             <View style={Styles.details}>
-                <Text><Text style={Styles.detailsHighlight}>Cook Time:</Text> {mealData.duration}m</Text>
-                <Text><Text style={Styles.detailsHighlight}>Difficulty:</Text> {mealData.complexity.toUpperCase()}</Text>
-                <Text><Text style={Styles.detailsHighlight}>Cost:</Text> {mealData.affordability.toUpperCase()}</Text>
+                <Text><Text style={Styles.detailsHighlight}>Cook Time:</Text> {duration}m</Text>
+                <Text><Text style={Styles.detailsHighlight}>Difficulty:</Text> {complexity.toUpperCase()}</Text>
+                <Text><Text style={Styles.detailsHighlight}>Cost:</Text> {affordability.toUpperCase()}</Text>
             </View>
         </Pressable>
     </View>

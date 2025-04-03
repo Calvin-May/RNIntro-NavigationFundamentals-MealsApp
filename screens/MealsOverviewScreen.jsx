@@ -15,10 +15,18 @@ export default function MealsOverviewScreen({ navigation, route }) {
     });
 
     function renderMealItem(mealData) {
-        console.log(mealData);
+        const item = mealData.item;
+        const mealItemProps = {
+            title: item.title,
+            imageUrl: item.imageUrl,
+            affordability : item.affordability,
+            duration: item.duration,
+            complexity: item.complexity
+        };
+
         return (
             <View>
-                <MealItem mealData={mealData.item}/>
+                <MealItem {...mealItemProps /*Each key/value pair in mealItemProps is passed as an individual prop */}/>
             </View>
         );
     }

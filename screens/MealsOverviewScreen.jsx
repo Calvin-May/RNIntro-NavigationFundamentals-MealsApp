@@ -1,27 +1,37 @@
-import { View, Text, StyleSheet } from "react-native";
-import { MEALS } from "../data/dummy-data";
-import { FlatList } from "react-native-gesture-handler";
+import { View, Text, StyleSheet, FlatList } from "react-native";
+import { useLayoutEffect } from "react";
+import { CATEGORIES, MEALS } from "../data/dummy-data";
 import MealItem from "../components/MealItem";
 
 export default function MealsOverviewScreen({ navigation, route }) {
 
     const categoryData = route.params;
-
-    console.log(categoryData);
-
     const meals = MEALS.filter((mealItem) => { 
         return mealItem.categoryIds.indexOf(categoryData.id) >= 0;
         //return 0
     });
 
+    // useLayoutEffect is used to set the title before the first render,
+    //-if we used useEffect, the screen would render with the generic title first,
+    //-fire off the useEffect, and rerender with the new title
+    useLayoutEffect(() => {
+        const categoryTitle = CATEGORIES.find((category) => category.id === categoryData.id).title
+        
+        navigation.setOptions({title: categoryTitle});
+    },[navigation, categoryData]);
+
+    
     function renderMealItem(mealData) {
         const item = mealData.item;
+
         const mealItemProps = {
+            id: item.id,
             title: item.title,
             imageUrl: item.imageUrl,
             affordability : item.affordability,
             duration: item.duration,
-            complexity: item.complexity
+            complexity: item.complexity,
+            navigation: navigation
         };
 
         return (

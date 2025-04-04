@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
+import MealDetailsScreen from './screens/MealDetailsScreen';
 
 //Navigation Configuration
 const Stack = createStackNavigator();
@@ -43,9 +44,16 @@ export default function App() {
                 />
               <Stack.Screen name="MealsOverview" 
                 component={MealsOverviewScreen} 
-                options={{
-                  title: 'Meals'
-                }}
+                // Dynamically set options using a function, instead we can do this in MealsOverviewScreen.jsx
+                // options={({ route, navigation }) => {
+                //   const categoryId = route.params.id
+                //   return {
+                //     title: categoryId,
+                //   }
+                // }}
+              />
+              <Stack.Screen name="MealDetails"
+                component={MealDetailsScreen}
               />
             </Stack.Navigator>
           </NavigationContainer>

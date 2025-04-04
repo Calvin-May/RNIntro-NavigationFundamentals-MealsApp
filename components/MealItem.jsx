@@ -1,10 +1,15 @@
 import { StyleSheet, Pressable, Image, View, Text, Platform } from "react-native";
 
-export default function MealItem({title, imageUrl, affordability, duration, complexity}) {
+export default function MealItem({id, title, imageUrl, affordability, duration, complexity, onPress, navigation}) {
+    
+    function onMealItemPress() {
+        navigation.navigate('MealDetails', {mealId: id});
+    }
+    
     return (
     <View style={Styles.mealItemContainer}>
         <Pressable
-            onPress={{}}
+            onPress={onMealItemPress}
             android_ripple={{color: '#00000034', foreground: true}} 
             //Destructure pressed from style function, used to insert additional style when button is pressed
             style={({pressed}) => [Styles.button, pressed ? Styles.buttonPressed : null]}

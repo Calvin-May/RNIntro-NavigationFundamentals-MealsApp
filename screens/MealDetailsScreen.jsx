@@ -1,13 +1,26 @@
-import { StyleSheet } from "react-native";
+import { Button, StyleSheet } from "react-native";
 import { View, Text, Image } from "react-native";
+import { useLayoutEffect } from "react";
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import Subtitle from "../components/Subtitle";
 import List from "../components/List";
+import IconButton from "../components/IconButton";
 
-export default function MealDetailsScreen({ route }) {
+export default function MealDetailsScreen({ route, navigation }) {
+
+    function headerButtonPressHandler() {
+        console.log('Pressed!');
+    }
+    useLayoutEffect(() => {
+        navigation.setOptions({headerRight: () => {
+            return <View style={STYLES.headerButtonContainer}><IconButton colour='#EC9C06' onPress={headerButtonPressHandler} icon='star' /></View>
+        }
+    })
+    },[navigation, headerButtonPressHandler])
+
+
     const MEAL_ID = route.params.mealId;
-
     const meal = MEALS.find((meal) => meal.id === MEAL_ID);
 
     
@@ -94,5 +107,10 @@ const STYLES = StyleSheet.create({
         borderBottomLeftRadius: 12,
         borderBottomRightRadius: 12,
         marginHorizontal: 100      
+    },
+    headerButtonContainer: {
+        flex: 1,
+        alignItems: 'flex-end',
+        marginRight: 12
     }
 });

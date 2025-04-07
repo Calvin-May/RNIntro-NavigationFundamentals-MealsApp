@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import CategoriesScreen from './screens/CategoriesScreen';
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -54,6 +54,13 @@ export default function App() {
               />
               <Stack.Screen name="MealDetails"
                 component={MealDetailsScreen}
+                // Only Render UI In the Headert his way if it does not need to interact with the Screen
+                //-it's rendered on. Instead, create the header button inside the screen component itself.
+                // options={{
+                //   headerRight: ()=> {
+                //     return <Button title='Tap Me' onPress={}/>
+                //   }
+                // }}
               />
             </Stack.Navigator>
           </NavigationContainer>

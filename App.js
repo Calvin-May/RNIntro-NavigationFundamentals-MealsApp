@@ -13,6 +13,7 @@ import CategoriesScreen from './screens/CategoriesScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 import MealDetailsScreen from './screens/MealDetailsScreen';
 import FavouritesScreen from './screens/FavouritesScreen';
+import FavouritesContextProvider from './store/context/favourites-context';
 
 //Navigation Configuration
 const Stack = createStackNavigator();
@@ -62,48 +63,51 @@ export default function App() {
         style={Styles.screen}
       >
         <View style={Styles.container}>
-          <NavigationContainer>
-            <Stack.Navigator 
-              initialRouteName="MealCategories"
-              screenOptions={{ // Set Global Screen Options
-                // headerStyle: {backgroundColor: '#ffffff'},
-                // headerTintColor: '#000000',
-                // //contentStyle: { backgroundColor: '#555123' } // Doesn't Work
-                // cardStyle: {backgroundColor: '#555123'}
-                headerShown: false
-              }}
-            >
-              <Stack.Screen name="MealCategories" 
-                component={DrawerNavigator} 
-                options={{
-                  title: 'Meal Categories',
-                  //headerStyle: {backgroundColor: '#ffffff'},
-                  //headerTintColor: '#000000',
-                  //backgroundColor: '#ffffff'
-                }} 
+          <FavouritesContextProvider>
+            <NavigationContainer>
+              <Stack.Navigator 
+                initialRouteName="MealCategories"
+                screenOptions={{ // Set Global Screen Options
+                  headerStyle: {backgroundColor: '#ffffff'},
+                  headerTintColor: '#000000',
+                  //contentStyle: { backgroundColor: '#555123' } // Doesn't Work
+                  cardStyle: {backgroundColor: '#555123'},
+                  
+                }}
+              >
+                <Stack.Screen name="MealCategories" 
+                  component={DrawerNavigator} 
+                  options={{
+                    title: 'Meal Categories',
+                    //headerStyle: {backgroundColor: '#ffffff'},
+                    //headerTintColor: '#000000',
+                    //backgroundColor: '#ffffff',
+                    headerShown: false
+                  }} 
+                  />
+                <Stack.Screen name="MealsOverview" 
+                  component={MealsOverviewScreen} 
+                  // Dynamically set options using a function, instead we can do this in MealsOverviewScreen.jsx
+                  // options={({ route, navigation }) => {
+                  //   const categoryId = route.params.id
+                  //   return {
+                  //     title: categoryId,
+                  //   }
+                  // }}
                 />
-              <Stack.Screen name="MealsOverview" 
-                component={MealsOverviewScreen} 
-                // Dynamically set options using a function, instead we can do this in MealsOverviewScreen.jsx
-                // options={({ route, navigation }) => {
-                //   const categoryId = route.params.id
-                //   return {
-                //     title: categoryId,
-                //   }
-                // }}
-              />
-              <Stack.Screen name="MealDetails"
-                component={MealDetailsScreen}
-                // Only Render UI In the header his way if it does not need to interact with the Screen
-                //-it's rendered on. Instead, create the header button inside the screen component itself.
-                // options={{
-                //   headerRight: ()=> {
-                //     return <Button title='Tap Me' onPress={}/>
-                //   }
-                // }}
-              />
-            </Stack.Navigator>
-          </NavigationContainer>
+                <Stack.Screen name="MealDetails"
+                  component={MealDetailsScreen}
+                  // Only Render UI In the header his way if it does not need to interact with the Screen
+                  //-it's rendered on. Instead, create the header button inside the screen component itself.
+                  // options={{
+                  //   headerRight: ()=> {
+                  //     return <Button title='Tap Me' onPress={}/>
+                  //   }
+                  // }}
+                />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </FavouritesContextProvider>
         </View>
       </LinearGradient>
     </>

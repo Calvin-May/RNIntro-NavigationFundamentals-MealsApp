@@ -1,25 +1,29 @@
-import { Button, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { View, Text, Image } from "react-native";
-import { useContext, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import Subtitle from "../components/Subtitle";
 import List from "../components/List";
 import IconButton from "../components/IconButton";
-import { FavouritesContext } from "../store/context/favourites-context";
+
+import { useDispatch, useSelector } from "react-redux";
+import { addFavourite, removeFavourite } from "../store/redux/favourites";
 
 export default function MealDetailsScreen({ route, navigation }) {
 
-    const favouriteMealsContext = useContext(FavouritesContext);
+    const favouriteMealIds = useSelector((state) => state.favouriteMeals.ids);
+    const dispatch = useDispatch();
+
     const MEAL_ID = route.params.mealId;
     const meal = MEALS.find((meal) => meal.id === MEAL_ID);
 
-    const mealIsFavourite = favouriteMealsContext.ids.includes(MEAL_ID);
+    const mealIsFavourite = favouriteMealIds.includes(MEAL_ID);
 
     function changeFavouriteStatusHandler() {
         mealIsFavourite ? 
-            favouriteMealsContext.removeFavourite(MEAL_ID) : 
-            favouriteMealsContext.addFavourite(MEAL_ID);
+            dispatch(removeFavourite({id: MEAL_ID})) : 
+            dispatch(addFavourite({id: MEAL_ID}));
     }
     useLayoutEffect(() => {
         navigation.setOptions({headerRight: () => {

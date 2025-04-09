@@ -1,16 +1,55 @@
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import CategoriesScreen from './screens/CategoriesScreen';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons'
 
 // Navigation Libraries
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator, DrawerContentScrollView } from '@react-navigation/drawer'
+
+// Screen Components
+import CategoriesScreen from './screens/CategoriesScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 import MealDetailsScreen from './screens/MealDetailsScreen';
+import FavouritesScreen from './screens/FavouritesScreen';
 
 //Navigation Configuration
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+
+function DrawerNavigator() {
+  return (
+    <Drawer.Navigator
+      screenOptions={{
+        headerStyle: {backgroundColor: '#ffffff'},
+        headerTintColor: '#000000',
+        sceneStyle: { backgroundColor: '#555123' },
+        drawerContentStyle: {backgroundColor: '#3f2f25' },
+        drawerInactiveTintColor: '#ffffff',
+        drawerActiveTintColor: '#351401',
+        drawerActiveBackgroundColor: '#E4BAA1'
+      }}
+    >
+      <Drawer.Screen 
+        name="Categories" 
+        component={CategoriesScreen}
+        options={{
+          title:'Meal Categories',
+          drawerIcon: ({ color, size }) => <Ionicons name='list' color={color} size={size} />
+        }}
+      />
+      <Drawer.Screen 
+        name="Favourites" 
+        component={FavouritesScreen}
+        options={{
+          title:'My Favourites',
+          drawerIcon: ({ color, size }) => <Ionicons name='star' color={color} size={size} />
+        }}
+      />
+    </Drawer.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -27,14 +66,15 @@ export default function App() {
             <Stack.Navigator 
               initialRouteName="MealCategories"
               screenOptions={{ // Set Global Screen Options
-                headerStyle: {backgroundColor: '#ffffff'},
-                headerTintColor: '#000000',
-                //contentStyle: { backgroundColor: '#555123' } // Doesn't Work
-                cardStyle: {backgroundColor: '#555123'}
+                // headerStyle: {backgroundColor: '#ffffff'},
+                // headerTintColor: '#000000',
+                // //contentStyle: { backgroundColor: '#555123' } // Doesn't Work
+                // cardStyle: {backgroundColor: '#555123'}
+                headerShown: false
               }}
             >
               <Stack.Screen name="MealCategories" 
-                component={CategoriesScreen} 
+                component={DrawerNavigator} 
                 options={{
                   title: 'Meal Categories',
                   //headerStyle: {backgroundColor: '#ffffff'},
@@ -54,7 +94,7 @@ export default function App() {
               />
               <Stack.Screen name="MealDetails"
                 component={MealDetailsScreen}
-                // Only Render UI In the Headert his way if it does not need to interact with the Screen
+                // Only Render UI In the header his way if it does not need to interact with the Screen
                 //-it's rendered on. Instead, create the header button inside the screen component itself.
                 // options={{
                 //   headerRight: ()=> {

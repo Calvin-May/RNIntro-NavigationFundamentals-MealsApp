@@ -13,7 +13,10 @@ import CategoriesScreen from './screens/CategoriesScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
 import MealDetailsScreen from './screens/MealDetailsScreen';
 import FavouritesScreen from './screens/FavouritesScreen';
-import FavouritesContextProvider from './store/context/favourites-context';
+
+// Redux
+import { Provider } from 'react-redux';
+import { store } from './store/redux/store';
 
 //Navigation Configuration
 const Stack = createStackNavigator();
@@ -63,7 +66,7 @@ export default function App() {
         style={Styles.screen}
       >
         <View style={Styles.container}>
-          <FavouritesContextProvider>
+          <Provider store={store}>
             <NavigationContainer>
               <Stack.Navigator 
                 initialRouteName="MealCategories"
@@ -107,7 +110,7 @@ export default function App() {
                 />
               </Stack.Navigator>
             </NavigationContainer>
-          </FavouritesContextProvider>
+          </Provider>
         </View>
       </LinearGradient>
     </>
